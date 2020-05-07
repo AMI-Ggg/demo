@@ -2,13 +2,11 @@ package com.Pipi.demo.controller;
 
 import com.Pipi.demo.Service.CommonService;
 import com.Pipi.demo.dto.request.loginRequest;
-import com.Pipi.demo.dto.response.BaseResponse;
 import com.Pipi.demo.dto.response.LoginResponse;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;

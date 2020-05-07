@@ -9,16 +9,13 @@ import com.Pipi.demo.dto.request.NickRequest;
 import com.Pipi.demo.dto.request.PasswordRequest;
 import com.Pipi.demo.dto.request.UserAddRequest;
 import com.Pipi.demo.dto.response.BaseResponse;
-import com.Pipi.demo.entity.custom.CUser;
 import com.alibaba.fastjson.JSON;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.io.OutputStream;
 import java.net.URLEncoder;
 import java.util.Date;
@@ -57,8 +54,13 @@ public class UserController {
     @RequestMapping(value = "/alterPassword", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse alterPassword(@RequestHeader String token, @RequestBody PasswordRequest request) {
+        BaseResponse response = new BaseResponse();
+        if (commonService.checkLogin(token) == null) {
+            response.setErrMsg("用户无权限，请重新登录");
+            response.setErrCode(Integer.toString(Constants.ErrCode.OPERATE_FAIL));
+            return response;
+        }
         request.setUser(commonService.checkLogin(token));
-        BaseResponse response;
         response = userService.alterPassword(request);
         return response;
     }
@@ -71,8 +73,13 @@ public class UserController {
     @RequestMapping(value = "/alterNick", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse alterNick(@RequestHeader String token, @RequestBody NickRequest request) {
+        BaseResponse response = new BaseResponse();
+        if (commonService.checkLogin(token) == null) {
+            response.setErrMsg("用户无权限，请重新登录");
+            response.setErrCode(Integer.toString(Constants.ErrCode.OPERATE_FAIL));
+            return response;
+        }
         request.setUser(commonService.checkLogin(token));
-        BaseResponse response;
         response = userService.alterNick(request);
         return response;
     }
@@ -85,8 +92,13 @@ public class UserController {
     @RequestMapping(value = "/alterMobilePhone", method = RequestMethod.POST)
     @ResponseBody
     public BaseResponse alterMobilePhone(@RequestHeader String token, @RequestBody MobilePhoneRequest request) {
+        BaseResponse response = new BaseResponse();
+        if (commonService.checkLogin(token) == null) {
+            response.setErrMsg("用户无权限，请重新登录");
+            response.setErrCode(Integer.toString(Constants.ErrCode.OPERATE_FAIL));
+            return response;
+        }
         request.setUser(commonService.checkLogin(token));
-        BaseResponse response;
         response = userService.alterMobilePhone(request);
         return response;
     }
